@@ -25,7 +25,7 @@ def chrbytes(b):
 
 def mif_value(row):
     v1 = struct.unpack('<i', row[:4])[0]
-    v2 = struct.unpack('>i', bytes(map(lambda b: b ^ 0xFF,list(row[4:8]))))[0]
+    v2 = struct.unpack('<i', bytes(map(lambda b: b ^ 0xFF,list(row[4:8]))))[0]
     v3 = struct.unpack('<i', row[:4])[0]
     if v1 != v2 or v2 != v3: return None
     a1, a2, a3, a4 = row[12:16]
