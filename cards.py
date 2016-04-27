@@ -50,7 +50,7 @@ class MifareClassic1kSector(Sector):
 
         lines = []
         for i in range(3):
-            l = utils.hexbytes(self._block(i))
+            block = self._block(i)
             access_str = 'A: '
             access_str += 'r' if c[i] not in ([0,1,1],[1,0,1],[1,1,1],) else '-'
             access_str += 'w' if c[i] in ([0,0,0],) else '-'
@@ -75,11 +75,11 @@ class MifareClassic1kSector(Sector):
             if c[i] in ([1,1,0], [0,0,1]): # value
                 val = utils.mif_value(self._block(i))
                 if val is not None:
-                    lines.append(utils.coloured(utils.Colour.BLUE, 'VALUE: ') + '{:<62}'.format('{} adr={}'.format(*val)) + '  (' + access_str + ')')
+                    lines.append('{} {:<62}  ({})'.format(utils.coloured(utils.Colour.BLUE, 'VALUE:'), '{} adr={}'.format(*val), access_str))
                 else:
-                    lines.append(' '.join(l) + '  [ ' + utils.chrbytes(self._block(i)) + ' ]  (' + access_str + ') ' + utils.coloured(utils.Colour.RED, '!VALUE'))
+                    lines.append('{}  [ {} ]  ({}) {}'.format(' '.join(utils.hexbytes(block)), utils.chrbytes(block), access_str, utils.coloured(utils.Colour.RED, '!VALUE')))
             else:
-                lines.append(' '.join(l) + '  [ ' + utils.chrbytes(self._block(i)) + ' ]  (' + access_str + ')')
+                lines.append('{}  [ {} ]  ({})'.format(' '.join(utils.hexbytes(block)), utils.chrbytes(block), access_str))
 
         trailer = utils.hexbytes(self._block(3))
         extra = []
