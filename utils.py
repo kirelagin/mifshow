@@ -8,11 +8,11 @@ def hexbytes(b):
     return list(map(hexbyte, b))
 
 def chrbyte(b):
-    c = chr(b)
+    c = bytes([b]).decode('cp1251')
     cat = ud.category(c)
-    if c == '\n':
+    if b == ord('\n'):
         return '↵'
-    elif c in [' '] or cat[0] in ['L', 'N', 'P', 'S']:
+    elif b in [ord(' ')] or cat[0] in ['L', 'N', 'P', 'S']:
         return c
     elif cat == 'Zs':
         return '␣'
