@@ -14,11 +14,11 @@ class Sector(Sequence):
         b7, b8 = trailer[7:9]
         c = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
         for i in range(4):
-            c[3-i][0] = (b7 & (1 << (7-i))) >> 7-i
+            c[3-i][0] = (b7 >> 7-i) & 0x01
         for i in range(4):
-            c[3-i][2] = (b8 & (1 << (7-i))) >> 7-i
+            c[3-i][2] = (b8 >> 7-i) & 0x01
         for i in range(4):
-            c[3-i][1] = (b8 & (1 << (3-i))) >> 3-i
+            c[3-i][1] = (b8 >> 3-i) & 0x01
         self._permissions_bits = c
 
         self._keyB_usable = c[3] not in ([0,0,0],[0,1,0],[0,0,1])
