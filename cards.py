@@ -73,7 +73,11 @@ class MifareClassic1kSector(Sector):
             if extra:
                 access_str += utils.coloured(utils.Colour.CYAN, ' -- ' + extra)
             if c[i] in ([1,1,0], [0,0,1]): # value
-                lines.append(utils.coloured(utils.Colour.BLUE, 'VALUE: ') + ' '.join(l[:4]) + ' ' * 51  + '  (' + access_str + ')')
+                val = utils.mif_value(self._block(i))
+                if val is not None:
+                    lines.append(utils.coloured(utils.Colour.BLUE, 'VALUE: ') + '{:<62}'.format('{} adr={}'.format(*val)) + '  (' + access_str + ')')
+                else:
+                    lines.append(' '.join(l) + '  [ ' + utils.chrbytes(self._block(i)) + ' ]  (' + access_str + ') ' + utils.coloured(utils.Colour.RED, '!VALUE'))
             else:
                 lines.append(' '.join(l) + '  [ ' + utils.chrbytes(self._block(i)) + ' ]  (' + access_str + ')')
 
