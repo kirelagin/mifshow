@@ -68,10 +68,10 @@ class MifareClassic1kSector(Sector):
                 extra = 'RO'
             elif (c[i] == [0,0,1]):
                 extra = 'non-rechargeable'
-            elif (c[i] == [1,1,1]):
-                extra = 'no access'
             if extra:
                 access_str += utils.coloured(utils.Colour.CYAN, ' -- ' + extra)
+            if (c[i] == [1,1,1]):
+                access_str += utils.coloured(utils.Colour.RED, ' NO ACCESS')
             if c[i] in ([1,1,0], [0,0,1]): # value
                 val = utils.mif_value(self._block(i))
                 if val is not None:
