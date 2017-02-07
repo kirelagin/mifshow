@@ -39,7 +39,7 @@ class Colour:
     BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
 
 def coloured(colour, msg, highlighted=False):
-    return '\033[1;{}{}m{}\033[1;m'.format(4 if highlighted else 3, colour, msg)
+    return '\033[1;{}{}m{}\033[0m'.format(4 if highlighted else 3, colour, msg)
 
 ##
 
